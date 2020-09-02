@@ -40,7 +40,7 @@ app.use(errorController.get404);
 // create tables in database
 sequelize.sync()
     .then((result) => {
-        console.log(result)
+        // console.log(result)
         // listener request
         app.listen(3000);
     })

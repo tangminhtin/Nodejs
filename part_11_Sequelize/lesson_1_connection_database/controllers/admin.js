@@ -21,14 +21,17 @@ exports.postAddProduct = (req, res, next) => {
     const price = req.body.price;
     const description = req.body.description;
     // add new product
-    const product = new Product(null, title, imageURL, price, description);
-    // save product
-    product
-        .save()
-        .then(() => {
-            res.redirect('/');
-        })
-        .catch(err => console.log(err));
+    Product.create({
+        title: title,
+        price: price,
+        imageURL: imageURL,
+        description: description
+    })
+    .then((result) => {
+        // console.log(result);
+        console.log('Created Product!');
+    })
+    .catch(err => console.log(err));
 };
 
 // get edit product info
