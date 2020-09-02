@@ -5,38 +5,49 @@ const Cart = require('../models/cart');
 // get all products
 exports.getProducts = (req, res, next) => {
     // fetch all products
-    Product.fetchAll()
-        .then(([rows, fieldData]) => {
-            res.render('shop/product-list', {
-                prods: rows, 
-                pageTitle: 'All Products', 
-                path: '/product',
-            });
-        })
-        .catch(err => console.log(err));
+    Product.findAll()
+    .then((products) => {
+        res.render('shop/product-list', {
+            prods: products, 
+            pageTitle: 'All Products', 
+            path: '/product',
+        });
+    })
+    .catch(err => console.log(err));
 };
 
 // get product detail
 exports.getProduct = (req, res, next) => {
     const prodId = req.params.productId;
-    Product.findById(prodId)
-        .then(([product]) => {
-            res.render('shop/product-detail', {
-                product: product[0],
-                pageTitle: "Product Detail",
-                path: "/product"
-            });
-        })
-        .catch(err => console.log(err));
+    // Product.findByPk(prodId)
+    //     .then((product) => {
+    //         res.render('shop/product-detail', {
+    //             product: product,
+    //             pageTitle: "Product Detail",
+    //             path: "/product"
+    //         });
+    //     })
+    //     .catch(err => console.log(err));
+
+    // another way to get single product with the where condition
+    Product.findAll({where: {id: prodId}})
+    .then((products) => {
+        res.render('shop/product-detail', {
+            product: products[0],
+            pageTitle: products[0].title,
+            path: "/product"
+        });
+    })
+    .catch(err => console.log(err));
 }
 
 // get index
 exports.getIndex = (req, res, next) => {
     // fetch all products
-    Product.fetchAll()
-        .then(([rows, fieldData]) => {
+    Product.findAll()
+        .then((products) => {
             res.render('shop/index', {
-                prods: rows, 
+                prods: products, 
                 pageTitle: 'Shop', 
                 path: '/',
             });
