@@ -10,8 +10,8 @@ const bodyParser = require('body-parser');
 // import error controller
 const errorController = require('./controllers/error');
 
-// import mysql
-const db = require('./util/database');
+// import sequelize
+const sequelize = require('./util/database');
 
 // create an application
 const app = express();
@@ -37,5 +37,13 @@ app.use(shopRoutes);
 // adding 404 error page
 app.use(errorController.get404);
 
-// listener request
-app.listen(3000);
+// create tables in database
+sequelize.sync()
+    .then((result) => {
+        console.log(result)
+        // listener request
+        app.listen(3000);
+    })
+    .catch((err) => {
+        console.log(err)
+    })
