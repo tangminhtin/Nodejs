@@ -66,11 +66,16 @@ exports.postCart = (req, res, next) => {
     Product.findById(prodId, (product) => {
         Cart.addProduct(prodId, product.price);
     })
-    res.redirect('/');
-    // res.render('shop/cart', {
-    //     pageTitle: 'Your Cart',
-    //     path:'/cart'
-    // });
+    res.redirect('/cart');
+};
+
+// cart delete product
+exports.postCartDeleteProduct = (req, res, next) => {
+    const prodId = req.body.productId;
+    Product.findById(prodId, (product) => {
+        Cart.deleteProduct(prodId, product.price);
+        res.redirect('/cart');
+    })
 };
 
 // get orders
