@@ -5,14 +5,15 @@ const Cart = require('../models/cart');
 // get all products
 exports.getProducts = (req, res, next) => {
     // fetch all products
-    Product.fetchAll(products => {
-        // render shop.pug page, passing products data into shop.hbs page
-        res.render('shop/product-list', {
-            prods: products, 
-            pageTitle: 'All Products', 
-            path: '/product',
-        });
-    });
+    Product.fetchAll()
+        .then(([rows, fieldData]) => {
+            res.render('shop/product-list', {
+                prods: rows, 
+                pageTitle: 'All Products', 
+                path: '/product',
+            });
+        })
+        .catch(err => console.log(err));
 };
 
 // get product detail
@@ -29,15 +30,16 @@ exports.getProduct = (req, res, next) => {
 
 // get index
 exports.getIndex = (req, res, next) => {
-     // fetch all products
-     Product.fetchAll(products => {
-        // render shop.pug page, passing products data into shop.hbs page
-        res.render('shop/index', {
-            prods: products, 
-            pageTitle: 'Shop', 
-            path: '/',
-        });
-    });
+    // fetch all products
+    Product.fetchAll()
+        .then(([rows, fieldData]) => {
+            res.render('shop/index', {
+                prods: rows, 
+                pageTitle: 'Shop', 
+                path: '/',
+            });
+        })
+        .catch(err => console.log(err));
 };
 
 // get cart

@@ -10,6 +10,9 @@ const bodyParser = require('body-parser');
 // import error controller
 const errorController = require('./controllers/error');
 
+// import mysql
+const db = require('./util/database');
+
 // create an application
 const app = express();
 
