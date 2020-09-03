@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 03, 2020 at 07:25 PM
+-- Generation Time: Sep 03, 2020 at 07:56 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -35,14 +35,6 @@ CREATE TABLE `cartitems` (
   `cartId` int(11) DEFAULT NULL,
   `productId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `cartitems`
---
-
-INSERT INTO `cartitems` (`id`, `quantity`, `createdAt`, `updatedAt`, `cartId`, `productId`) VALUES
-(1, 1, '2020-09-03 17:05:31', '2020-09-03 17:05:31', 1, 1),
-(2, 3, '2020-09-03 17:06:57', '2020-09-03 17:22:24', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -81,7 +73,17 @@ INSERT INTO `carts` (`id`, `createdAt`, `updatedAt`, `userId`) VALUES
 (17, '2020-09-03 17:21:27', '2020-09-03 17:21:27', 1),
 (18, '2020-09-03 17:22:09', '2020-09-03 17:22:09', 1),
 (19, '2020-09-03 17:24:14', '2020-09-03 17:24:14', 1),
-(20, '2020-09-03 17:24:22', '2020-09-03 17:24:22', 1);
+(20, '2020-09-03 17:24:22', '2020-09-03 17:24:22', 1),
+(21, '2020-09-03 17:30:19', '2020-09-03 17:30:19', 1),
+(22, '2020-09-03 17:31:58', '2020-09-03 17:31:58', 1),
+(23, '2020-09-03 17:32:09', '2020-09-03 17:32:09', 1),
+(24, '2020-09-03 17:41:03', '2020-09-03 17:41:03', 1),
+(25, '2020-09-03 17:45:04', '2020-09-03 17:45:04', 1),
+(26, '2020-09-03 17:47:51', '2020-09-03 17:47:51', 1),
+(27, '2020-09-03 17:49:52', '2020-09-03 17:49:52', 1),
+(28, '2020-09-03 17:54:01', '2020-09-03 17:54:01', 1),
+(29, '2020-09-03 17:54:14', '2020-09-03 17:54:14', 1),
+(30, '2020-09-03 17:54:19', '2020-09-03 17:54:19', 1);
 
 -- --------------------------------------------------------
 
@@ -104,7 +106,11 @@ CREATE TABLE `orderitems` (
 
 INSERT INTO `orderitems` (`id`, `quantity`, `createdAt`, `updatedAt`, `orderId`, `productId`) VALUES
 (1, 1, '2020-09-03 17:24:30', '2020-09-03 17:24:30', 1, 1),
-(2, 3, '2020-09-03 17:24:30', '2020-09-03 17:24:30', 1, 2);
+(2, 3, '2020-09-03 17:24:30', '2020-09-03 17:24:30', 1, 2),
+(3, 2, '2020-09-03 17:30:41', '2020-09-03 17:30:41', 2, 1),
+(4, 4, '2020-09-03 17:30:41', '2020-09-03 17:30:41', 2, 2),
+(5, 1, '2020-09-03 17:50:36', '2020-09-03 17:50:36', 3, 2),
+(6, 1, '2020-09-03 17:51:16', '2020-09-03 17:51:16', 4, 2);
 
 -- --------------------------------------------------------
 
@@ -124,7 +130,10 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `createdAt`, `updatedAt`, `userId`) VALUES
-(1, '2020-09-03 17:24:30', '2020-09-03 17:24:30', 1);
+(1, '2020-09-03 17:24:30', '2020-09-03 17:24:30', 1),
+(2, '2020-09-03 17:30:41', '2020-09-03 17:30:41', 1),
+(3, '2020-09-03 17:50:36', '2020-09-03 17:50:36', 1),
+(4, '2020-09-03 17:51:15', '2020-09-03 17:51:15', 1);
 
 -- --------------------------------------------------------
 
@@ -227,25 +236,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cartitems`
 --
 ALTER TABLE `cartitems`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `orderitems`
 --
 ALTER TABLE `orderitems`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `products`
