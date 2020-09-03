@@ -13,11 +13,13 @@ const errorController = require('./controllers/error');
 // import sequelize
 const sequelize = require('./util/database');
 
-// import product, user, cart, cart item model
+// import product, user, cart, cart item, order, order item model
 const Product = require('./models/product');
 const User = require('./models/user');
 const Cart = require('./models/cart');
 const CartItem = require('./models/cart-item');
+const Order = require('./models/order');
+const OrderItem = require('./models/order-item');
 
 // create an application
 const app = express();
@@ -64,6 +66,10 @@ User.hasOne(Cart);
 Cart.belongsTo(User);
 Cart.belongsToMany(Product, {through: CartItem});
 Product.belongsToMany(Cart, {through: CartItem});
+
+Order.belongsTo(User);
+User.hasMany(Order);
+Order.belongsToMany(Product, {through: OrderItem});
 
 // create tables in database
 // sequelize.sync({force: true}) // overwrite database
