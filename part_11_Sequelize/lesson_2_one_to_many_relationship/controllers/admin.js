@@ -20,19 +20,21 @@ exports.postAddProduct = (req, res, next) => {
     const imageURL = req.body.imageURL;
     const price = req.body.price;
     const description = req.body.description;
-    // add new product
-    Product.create({
-        title: title,
-        price: price,
-        imageURL: imageURL,
-        description: description
-    })
-    .then((result) => {
-        // console.log(result);
-        console.log('Created Product!');
-        res.redirect('/admin/products');
-    })
-    .catch(err => console.log(err));
+    
+    // add new product (using magic association method)
+    req.user
+        .createProduct({
+            title: title,
+            price: price,
+            imageURL: imageURL,
+            description: description
+        })
+        .then((result) => {
+            // console.log(result);
+            console.log('Created Product!');
+            res.redirect('/admin/products');
+        })
+        .catch(err => console.log(err));
 };
 
 // get edit product info
