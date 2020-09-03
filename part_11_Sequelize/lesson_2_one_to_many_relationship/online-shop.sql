@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 02, 2020 at 07:35 PM
+-- Generation Time: Sep 03, 2020 at 08:06 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -34,16 +34,23 @@ CREATE TABLE `products` (
   `imageURL` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL
+  `updatedAt` datetime NOT NULL,
+  `userId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `products`
+-- Table structure for table `users`
 --
 
-INSERT INTO `products` (`id`, `title`, `price`, `imageURL`, `description`, `createdAt`, `updatedAt`) VALUES
-(1, 'Nguyễn Khôi', 343, 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-0/s600x600/118311213_2941108286116776_3328558214243660687_o.jpg?_nc_cat=107&_nc_sid=b9115d&_nc_ohc=2dCpwOrGB7sAX-XKL9q&_nc_ht=scontent-sin6-1.xx&tp=7&oh=dd3c04db2f3d7da55bf4108de54e5045&oe=5F7495FF', 'My hair is a bit dark\r\nYour lips are slightly red\r\nHey you guys\r\nI talk little again\r\nDo you love me?', '2020-09-02 17:03:55', '2020-09-02 17:03:55'),
-(2, '<script>alert(\'a\');</script>', 54, 'https://scontent.fsgn5-3.fna.fbcdn.net/v/t1.0-0/s600x600/118243419_2273065152838702_755918056099716101_o.jpg?_nc_cat=111&_nc_sid=b9115d&_nc_ohc=8zIfat95CDsAX-mT-jl&_nc_ht=scontent.fsgn5-3.fna&tp=7&oh=bdc67f820c0b4ebcd7b11871953d82d4&oe=5F755CEA', 'Nhà có cô e gái 2k3 không biết có bác nào muốn nhận nuôi không', '2020-09-02 17:11:36', '2020-09-02 17:11:36');
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Indexes for dumped tables
@@ -53,6 +60,13 @@ INSERT INTO `products` (`id`, `title`, `price`, `imageURL`, `description`, `crea
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `userId` (`userId`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -63,7 +77,23 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
