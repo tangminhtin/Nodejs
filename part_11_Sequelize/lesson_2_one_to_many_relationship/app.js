@@ -35,6 +35,16 @@ app.use(bodyParser.urlencoded({extended: true}));
 // register middleware, server static files, grant access public folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+// register middleware
+app.use((req, res, next) => {
+    User.findByPk(1)
+        .then((user) => {
+            req.user = user;
+            next();
+        })
+        .catch((err) => console.log(err));
+});
+
 // use adminRoutes
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
@@ -47,9 +57,21 @@ Product.belongsTo(User, {constraints: true, onDelete: 'CASCADE'});
 User.hasMany(Product);
 
 // create tables in database
-sequelize.sync({force: true})
+// sequelize.sync({force: true}) // overwrite database
+sequelize.sync()
+    // create dummy user data
     .then((result) => {
         // console.log(result)
+        return User.findByPk(1);
+    })
+    .then((user) => {
+        if (!user) {
+            return User.create({name: 'Minh Tin', email: 'minhtin@gmail.com'});
+        } 
+        return user;
+    })
+    .then((user) => {
+        // console.log(user);
         // listener request
         app.listen(3000);
     })
