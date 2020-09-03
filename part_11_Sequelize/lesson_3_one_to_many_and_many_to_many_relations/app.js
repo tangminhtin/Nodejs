@@ -66,8 +66,8 @@ Cart.belongsToMany(Product, {through: CartItem});
 Product.belongsToMany(Cart, {through: CartItem});
 
 // create tables in database
-sequelize.sync({force: true}) // overwrite database
-// sequelize.sync()
+// sequelize.sync({force: true}) // overwrite database
+sequelize.sync()
     // create dummy user data
     .then((result) => {
         // console.log(result)
@@ -81,6 +81,9 @@ sequelize.sync({force: true}) // overwrite database
     })
     .then((user) => {
         // console.log(user);
+        return user.createCart();
+    })
+    .then((cart) => {
         // listener request
         app.listen(3000);
     })
