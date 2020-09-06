@@ -1,8 +1,19 @@
-// import sequelize
-const Sequelize = require('sequelize');
+// get access database
+const getDb = require('../util/database').getDb;
 
-const sequelize = require('../util/database');
+// class product
+class Product {
+    constructor(title, price, description, imageURL) {
+        this.title = title;
+        this.price = price;
+        this.description = description;
+        this.imageURL = imageURL;
+    }
 
+    save() {
+
+    }
+}
 // define product model
 const Product = sequelize.define('product', {
     id: {

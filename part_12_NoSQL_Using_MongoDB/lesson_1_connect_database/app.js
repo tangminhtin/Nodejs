@@ -21,7 +21,7 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 // import adminRoutes, shopRoutes
-// const adminRoutes = require('./routes/admin');
+const adminRoutes = require('./routes/admin');
 // const shopRoutes = require('./routes/shop');
 
 // encode of body content
@@ -41,13 +41,13 @@ app.use((req, res, next) => {
 });
 
 // use adminRoutes
-// app.use('/admin', adminRoutes);
+app.use('/admin', adminRoutes);
 // app.use(shopRoutes);
 
 // adding 404 error page
 app.use(errorController.get404);
 
-mongoConnect(client => {
-    console.log(client);
+// connect database
+mongoConnect(() => {
     app.listen(3000);
 });
