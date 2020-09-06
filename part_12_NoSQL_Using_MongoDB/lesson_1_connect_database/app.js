@@ -22,7 +22,7 @@ app.set('views', 'views');
 
 // import adminRoutes, shopRoutes
 const adminRoutes = require('./routes/admin');
-// const shopRoutes = require('./routes/shop');
+const shopRoutes = require('./routes/shop');
 
 // encode of body content
 app.use(bodyParser.urlencoded({extended: true}));
@@ -41,9 +41,9 @@ app.use((req, res, next) => {
     next();
 });
 
-// use adminRoutes
+// use admin and shop routes
 app.use('/admin', adminRoutes);
-// app.use(shopRoutes);
+app.use(shopRoutes);
 
 // adding 404 error page
 app.use(errorController.get404);

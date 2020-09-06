@@ -1,19 +1,19 @@
 // import product, order model
 const Product = require('../models/product');
-const Order = require('../models/order');
+// const Order = require('../models/order');
 
 // get all products
 exports.getProducts = (req, res, next) => {
     // fetch all products
-    Product.findAll()
-    .then((products) => {
-        res.render('shop/product-list', {
-            prods: products, 
-            pageTitle: 'All Products', 
-            path: '/product',
-        });
-    })
-    .catch(err => console.log(err));
+    Product.fetchAll()
+        .then((products) => {
+            res.render('shop/product-list', {
+                prods: products, 
+                pageTitle: 'All Products', 
+                path: '/product',
+            });
+        })
+        .catch(err => console.log(err));
 };
 
 // get product detail
@@ -35,7 +35,7 @@ exports.getProduct = (req, res, next) => {
 // get index
 exports.getIndex = (req, res, next) => {
     // fetch all products
-    Product.findAll()
+    Product.fetchAll()
         .then((products) => {
             res.render('shop/index', {
                 prods: products, 
