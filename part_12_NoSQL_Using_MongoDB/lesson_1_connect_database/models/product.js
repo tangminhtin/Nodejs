@@ -6,19 +6,30 @@ const getDb = require('../util/database').getDb;
 
 // class product
 class Product {
-    constructor(title, price, description, imageURL) {
+    constructor(title, price, description, imageURL, _id) {
         this.title = title;
         this.price = price;
         this.description = description;
         this.imageURL = imageURL;
+        this._id = _id;
     }
 
     // save data
     save() {
         const db = getDb();
-        // create or insert one record data into table products
-        return db.collection('products')
-            .insertOne(this)
+        let dbOperator;
+
+        // if _id exist then update product
+        if(this._id) {
+            dbOperator = db.collection('products')
+                .updateOne({_id: new mongodb.ObjectID(this._id)}, {$set: this});
+        } else {
+            // insert one record data into table products
+            dbOperator = db.collection('products')
+                .insertOne(this);
+        }
+        // return result
+        return dbOperator
             .then((result) => {
                 console.log(result);
             })
