@@ -11,7 +11,7 @@ class Product {
         this.price = price;
         this.description = description;
         this.imageURL = imageURL;
-        this._id = _id;
+        this._id = new mongodb.ObjectID(_id);
     }
 
     // save data
@@ -22,7 +22,7 @@ class Product {
         // if _id exist then update product
         if(this._id) {
             dbOperator = db.collection('products')
-                .updateOne({_id: new mongodb.ObjectID(this._id)}, {$set: this});
+                .updateOne({_id: this._id}, {$set: this});
         } else {
             // insert one record data into table products
             dbOperator = db.collection('products')

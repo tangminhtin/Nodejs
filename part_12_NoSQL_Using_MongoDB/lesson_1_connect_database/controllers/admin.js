@@ -1,8 +1,5 @@
-// import mongodb, product model
-const mongodb = require('mongodb');
+// import product model
 const Product = require('../models/product');
-
-const ObjectId = mongodb.ObjectId;
 
 // get access request of user
 exports.getAddProduct = (req, res, next) => {
@@ -78,7 +75,7 @@ exports.postEditProduct = (req, res, next) => {
         updatedPrice,
         updatedDescription,
         updatedImageURL,
-        new ObjectId(prodId)
+        prodId
     );
 
     product
