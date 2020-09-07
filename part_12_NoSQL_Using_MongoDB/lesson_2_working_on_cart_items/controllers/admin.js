@@ -22,7 +22,15 @@ exports.postAddProduct = (req, res, next) => {
     const description = req.body.description;
     
     // add new product
-    const product = new Product(title, price, description, imageURL);
+    const product = new Product(
+        title, 
+        price, 
+        description, 
+        imageURL, 
+        null, 
+        req.user._id
+    );
+    
     product
         .save()
         .then((result) => {

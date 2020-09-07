@@ -1,7 +1,5 @@
-// import path
+// import path, express
 const path = require('path');
-
-// import express
 const express = require('express');
 
 // import body parser to get content of request
@@ -12,6 +10,7 @@ const errorController = require('./controllers/error');
 
 // import mongodb
 const mongoConnect = require('./util/database').mongoConnect;
+const User = require('./models/user');
 
 // create an application
 const app = express();
@@ -32,13 +31,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // register middleware
 app.use((req, res, next) => {
-    // User.findByPk(1)
-    //     .then((user) => {
-    //         req.user = user;
-    //         next();
-    //     })
-    //     .catch((err) => console.log(err));
-    next();
+    User.findById('5f55c7916732fd17be4d70c5')
+        .then((user) => {
+            req.user = user;
+            next();
+        })
+        .catch((err) => console.log(err));
 });
 
 // use admin and shop routes
