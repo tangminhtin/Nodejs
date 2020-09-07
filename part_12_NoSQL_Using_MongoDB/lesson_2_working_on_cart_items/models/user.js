@@ -9,10 +9,11 @@ let ObjectId = mongodb.ObjectId;
 
 // create User class
 class User {
-    constructor(username, email, _id) {
+    constructor(username, email, _id, cart) {
         this.username = username;
         this.email = email;
-        this._id = _id ? new mongodb.ObjectID(_id) : null;
+        this._id = _id ? new ObjectId(_id) : null;
+        this.cart = cart;   // {items: []}
     }
 
     // insert or update record
@@ -33,6 +34,21 @@ class User {
         return dbOp
             .then((result) => console.log(result))
             .catch((err) => console.log(err));
+    }
+
+    // add product to cart
+    addToCart(product) {
+        // const cartProduct = this.cart.items.findIndex(item => {
+        //     return item._id === product._id;
+        // })
+
+        const db = getDb();
+        const updatedCart = {items: [{...product, quantity: 1}]};
+        return db.collection('users')
+            .updateOne({_id: this._id}, {$set: {cart: updatedCart}})
+            .then((result) => console.log(result))
+            .catch((err) => console.log(err));
+
     }
 
     // find user by id
