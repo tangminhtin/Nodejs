@@ -105,6 +105,29 @@ class User {
             .then((user) => console.log(user))
             .catch((err) => console.log(err));
     }
+
+    // get cart
+    getCart() {
+        // get access database
+        const db = getDb();
+        // get all id of product in cart
+        const productIds = this.cart.items.map(i => {
+            return i.productId;
+        });
+        return db.collection('products')
+            .find({_id: {$in: productIds}})
+            .toArray()
+            .then(products => {
+                return products.map(p => {
+                    return {
+                        ...p,
+                        quantity: this.cart.items.find(i => {
+                            return i.productId.toString() === p._id.toString();
+                        }).quantity
+                    };
+                });
+            });
+    }
 }
 
 module.exports = User;
