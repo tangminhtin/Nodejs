@@ -128,6 +128,22 @@ class User {
                 });
             });
     }
+
+    // delete item in cart
+    deleteItemFromCart(productId) {
+        // keep all product except product will delete
+        const updatedCartItems = this.cart.items.filter(item => {
+            return item.productId.toString() !== productId.toString();
+        });
+        // get access database
+        const db = getDb();
+        // update cart  
+        return db.collection('users')
+            .updateOne(
+                {_id: new ObjectId(this._id)},
+                {$set: {cart: {items: updatedCartItems}}}
+            );
+    }
 }
 
 module.exports = User;
