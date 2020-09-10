@@ -148,10 +148,19 @@ class User {
     addOrder() {
         // get access database
         const db = getDb();
-        // add order
-        return db.collection('orders')
-            // add cart of users to orders
-            .insertOne(this.cart)
+        return this.getCart()
+            .then(products => {
+                const order = {
+                    items: products,
+                    user: {
+                        _id: new ObjectId(this._id),
+                        name: this.username
+                    }
+                };
+                // add orders
+                return db.collection('orders')
+                    .insertOne(order);
+            })
             .then(result => {
                 this.cart = {items: []};
                 // set cart in users to empty
