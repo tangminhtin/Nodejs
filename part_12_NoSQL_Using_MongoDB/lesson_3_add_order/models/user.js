@@ -145,6 +145,7 @@ class User {
             );
     }
 
+    // add order
     addOrder() {
         // get access database
         const db = getDb();
@@ -170,6 +171,15 @@ class User {
                         { $set: {cart: {items: []}}}
                     );
             });
+    }
+
+    // get order
+    getOrders() {
+        // get access database
+        const db = getDb();
+        return db.collection('orders')
+            .find({'user._id': new ObjectId(this._id)})
+            .toArray();
     }
 }
 
