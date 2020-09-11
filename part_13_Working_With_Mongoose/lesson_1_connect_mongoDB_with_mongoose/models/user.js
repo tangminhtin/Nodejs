@@ -1,3 +1,37 @@
+// import mongoose
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+// define user document
+const userSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    cart: {
+        items: [
+            {
+                productId: {
+                    type: Schema.Types.ObjectId,
+                    required: true
+                },
+                quantity: { 
+                    type: Number,
+                    required: true
+                }
+            }
+        ]
+    }
+});
+
+// create user document
+module.exports = mongoose.model('User', userSchema);
+
+
 // // import mongodb
 // const mongodb = require('mongodb');
 

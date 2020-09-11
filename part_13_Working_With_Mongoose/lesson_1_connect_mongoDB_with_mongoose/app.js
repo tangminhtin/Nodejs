@@ -11,7 +11,7 @@ const mongoose = require('mongoose');
 // import error controller
 const errorController = require('./controllers/error');
 
-// const User = require('./models/user');
+const User = require('./models/user');
 
 // create an application
 const app = express();
@@ -30,15 +30,15 @@ app.use(bodyParser.urlencoded({extended: true}));
 // register middleware, server static files, grant access public folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// // register middleware
-// app.use((req, res, next) => {
-//     User.findById('5f58b66552c8f1322652fa0b')
-//         .then((user) => {
-//             req.user = new User(user.username, user.email, user._id, user.cart);
-//             next();
-//         })
-//         .catch((err) => console.log(err));
-// });
+// register middleware
+app.use((req, res, next) => {
+    User.findById('5f5bb0fc2941d72b53eac384')
+        .then((user) => {
+            req.user = new User(user.username, user.email, user._id, user.cart);
+            next();
+        })
+        .catch((err) => console.log(err));
+});
 
 // use admin and shop routes
 app.use('/admin', adminRoutes);
@@ -48,10 +48,22 @@ app.use(shopRoutes);
 app.use(errorController.get404);
 
 // connect database
-
 mongoose
     .connect('mongodb+srv://tangminhtin:6Pb8I4g24ZChkFk0@cluster0.ze1a2.mongodb.net/shop?retryWrites=true&w=majority')
     .then(result => {
+        User.findOne()
+            .then((user) => {
+                if(!user) {
+                    const user = new User({
+                        name: 'Minh Tin Tang',
+                        email: 'minhtintang@gmail.com',
+                        cart: {
+                            items: []
+                        }
+                    });
+                    user.save();
+                }
+            });
         app.listen(3000);
     })
     .catch(err => console.log(err));
