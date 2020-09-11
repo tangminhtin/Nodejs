@@ -1,3 +1,31 @@
+// import mongoose
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+// define product document
+const productSchema = new Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    imageUrl: {
+        type: String,
+        required: true
+    }
+});
+
+// create product document
+module.exports = mongoose.model('Product', productSchema);
+
+
 // // import mongodb
 // const mongodb = require('mongodb');
 
