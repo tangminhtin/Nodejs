@@ -76,16 +76,14 @@ exports.postEditProduct = (req, res, next) => {
     const updatedDescription = req.body.description;
 
     // update product
-    const product = new Product(
-        updatedTitle, 
-        updatedPrice,
-        updatedDescription,
-        updatedImageURL,
-        prodId
-    );
-
-    product
-        .save()
+    Product.findById(prodId)
+        .then((product) => {
+            product.title = updatedTitle;
+            product.price = updatedPrice;
+            product.description = updatedDescription;
+            product.imageURL = updatedImageURL;
+            return product.save();
+        })
         .then((result) => {
             // console.log(result);
             console.log('Updated Success!');
@@ -97,7 +95,7 @@ exports.postEditProduct = (req, res, next) => {
 // get products
 exports.getProducts = (req, res, next) => {
     // fetch all products
-    Product.fetchAll()
+    Product.find()
         .then((products) => {
             res.render('admin/products', {
                 prods: products, 
