@@ -5,11 +5,12 @@ const express = require('express');
 // import body parser to get content of request
 const bodyParser = require('body-parser');
 
+// import mongoose
+const mongoose = require('mongoose');
+
 // import error controller
 const errorController = require('./controllers/error');
 
-// import mongodb
-const mongoConnect = require('./util/database').mongoConnect;
 const User = require('./models/user');
 
 // create an application
@@ -47,6 +48,10 @@ app.use(shopRoutes);
 app.use(errorController.get404);
 
 // connect database
-mongoConnect(() => {
-    app.listen(3000);
-});
+
+mongoose
+    .connect('mongodb+srv://tangminhtin:6Pb8I4g24ZChkFk0@cluster0.ze1a2.mongodb.net/shop?retryWrites=true&w=majority')
+    .then(result => {
+        app.listen(3000);
+    })
+    .catch(err => console.log(err));

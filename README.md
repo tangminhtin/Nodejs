@@ -9,3 +9,6 @@ npm install --save sequelize
 
 ## install MongoDB
 npm install --save mongodb
+
+## install Mongoose
+npm install --save mongoose
