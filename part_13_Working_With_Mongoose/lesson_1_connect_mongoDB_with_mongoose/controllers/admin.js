@@ -97,7 +97,10 @@ exports.postEditProduct = (req, res, next) => {
 exports.getProducts = (req, res, next) => {
     // fetch all products
     Product.find()
+        .select('title price -_id') // select column want to display
+        .populate('userId', 'name') // get info of ref user
         .then((products) => {
+            console.log(products);
             res.render('admin/products', {
                 prods: products, 
                 pageTitle: 'Admin Products', 
