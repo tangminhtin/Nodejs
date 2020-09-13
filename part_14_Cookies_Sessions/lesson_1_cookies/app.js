@@ -20,9 +20,10 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-// import adminRoutes, shopRoutes
+// register adminRoutes, shopRoutes, authRoutes
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
+const authRoutes = require('./routes/auth');
 
 // encode of body content
 app.use(bodyParser.urlencoded({extended: true}));
@@ -40,9 +41,10 @@ app.use((req, res, next) => {
         .catch((err) => console.log(err));
 });
 
-// use admin and shop routes
+// use admin, shop, auth routes
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
+app.use(authRoutes);
 
 // adding 404 error page
 app.use(errorController.get404);
