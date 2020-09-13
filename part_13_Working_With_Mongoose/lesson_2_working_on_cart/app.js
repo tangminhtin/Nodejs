@@ -32,9 +32,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // register middleware
 app.use((req, res, next) => {
-    User.findById('5f5bb0fc2941d72b53eac384')
+    User.findById('5f5d9a7b1026444f164c8bf7')
         .then((user) => {
-            req.user = new User(user.username, user.email, user._id, user.cart);
+            req.user = user;
             next();
         })
         .catch((err) => console.log(err));
